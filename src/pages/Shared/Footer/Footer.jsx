@@ -3,18 +3,20 @@ import Logo from "../../../components/logo/Logo";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-horizontal footer-center text-secondary p-10">
+    <footer className="footer footer-horizontal footer-center  p-10 text-white bg-black rounded-2xl mt-20 md:mt-25 ">
       <aside>
         <Logo />
-        <p className="font-bold">
-          ACME Industries Ltd.
-          <br />
-          Providing reliable tech since 1992
+        <p className="text-[#DADADA] max-w-3xl">
+          Enjoy fast, reliable parcel delivery with real-time tracking and zero
+          hassle. From personal packages to business shipments — we deliver on
+          time, every time.
         </p>
-        <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
       </aside>
+      <div className="w-full border-t border-secondary border-dashed"></div>
       <nav>
-        <div className="grid grid-flow-col gap-4">
+        <div
+          className="grid grid-flow-col gap-4 "
+        >
           <a>
             <svg
               xmlns="http://www.w3.org/2000/svg"

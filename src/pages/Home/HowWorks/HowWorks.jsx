@@ -36,9 +36,9 @@ const HowWorks = () => {
     <section className=" mt-20 md:mt-25">
         <h2 className="text-secondary font-extrabold text-3xl mb-6 md:mb-8">How it Works</h2>
       <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-6">
-        {workInfo.map((i) => (
-          <div className="p-6 md:p-8 bg-[#f9f9fa] rounded-2xl space-y-4 md:space-y-6 ">
-            <img className="w-14" src={i.icon} alt="" />
+        {workInfo.map((i,index) => (
+          <div key={index} className="p-6 md:p-8 bg-[#f9f9fa] rounded-2xl space-y-4 md:space-y-6 ">
+            <img className="w-14 h-14 " src={i.icon} alt="" />
             <h3 className="text-xl font-bold text-secondary">{i.title}</h3>
             <p className="text-[#606060]">{i.description}</p>
           </div>

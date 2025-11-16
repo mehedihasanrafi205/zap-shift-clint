@@ -52,8 +52,11 @@ const Services = () => {
         time, every time.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  px-10">
-        {serviceInfo.map((i) => (
-          <div className="bg-white rounded-2xl px-6 md:px-8 py-5 md:py-6 space-y-4 hover:bg-primary">
+        {serviceInfo.map((i, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-2xl px-6 md:px-8 py-5 md:py-6 space-y-4 hover:bg-primary"
+          >
             <img
               className="mx-auto p-6 rounded-full bg-linear-to-b from-[#EEEDFC] to-[#eeedfc00]"
               src={i.icon}
