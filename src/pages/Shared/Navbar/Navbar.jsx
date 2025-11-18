@@ -27,7 +27,7 @@ const Navbar = () => {
         <NavLink to={"/"}>About Us</NavLink>
       </li>
       <li>
-        <NavLink to={"/"}>Pricing</NavLink>
+        <NavLink to={"/send-parcel"}>Send Parcel</NavLink>
       </li>
       <li>
         <NavLink to={"/"}>Blog</NavLink>
@@ -65,9 +65,9 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className=" text-xl">
+        <Link to={"/"} className=" text-xl">
           <Logo />
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -85,7 +85,10 @@ const Navbar = () => {
             Sign In
           </Link>
         )}
-        <Link to={'/rider'} className="btn btn-primary ms-2 text-[#1F1F1F] rounded-lg">
+        <Link
+          to={"/rider"}
+          className="btn btn-primary ms-2 text-[#1F1F1F] rounded-lg"
+        >
           Be a Rider
         </Link>
         <button className="btn btn-secondary rounded-full text-primary font-bold">
