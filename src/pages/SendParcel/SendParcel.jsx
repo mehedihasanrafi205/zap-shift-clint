@@ -2,14 +2,18 @@ import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const serviceCenter = useLoaderData();
   const regionsDuplicate = serviceCenter.map((c) => c.region);
   const regions = [...new Set(regionsDuplicate)];
@@ -25,6 +29,7 @@ const SendParcel = () => {
   //   console.log(regions);
   const handleSendParcel = (data) => {
     console.log(data);
+
     const parcelWeight = parseFloat(data.parcelWeight);
     const isDocument = data.parcelType === "document";
     const isSameDistrict = data.senderDistrict === data.receiverDistrict;
@@ -47,6 +52,7 @@ const SendParcel = () => {
     }
 
     console.log(cost);
+    data.cost = cost
     Swal.fire({
       title: "Agree with the cost?",
       text: `You will be charged ${cost} taka!`,
@@ -57,7 +63,10 @@ const SendParcel = () => {
       confirmButtonText: " I Agree !",
     }).then((result) => {
       if (result.isConfirmed) {
-        
+        axiosSecure
+          .post("/parcels", data)
+          .then((res) => console.log("After saving parcel", res.data));
+
         // Swal.fire({
         //   title: "Deleted!",
         //   text: "Your file has been deleted.",
@@ -131,12 +140,14 @@ const SendParcel = () => {
               type="text"
               {...register("senderName")}
               className="input w-full"
+              defaultValue={user?.displayName}
               placeholder="Sender Name"
             />
             <label className="">Sender Email</label>
             <input
               type="email"
               {...register("senderEmail")}
+              defaultValue={user?.email}
               className="input w-full"
               placeholder="Sender Email"
             />
