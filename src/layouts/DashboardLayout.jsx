@@ -1,6 +1,7 @@
 import React from "react";
 import { IoIosCard } from "react-icons/io";
 import { LuPackage } from "react-icons/lu";
+import { MdDeliveryDining } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 
 const DashboardLayout = () => {
@@ -97,6 +98,20 @@ const DashboardLayout = () => {
                   <span className="is-drawer-close:hidden">
                     {" "}
                     Payment History
+                  </span>{" "}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Approve riders"
+                  to={"/dashboard/approve-riders"}
+                >
+                  {" "}
+                  <MdDeliveryDining  className="my-1.5 inline-block size-4" />{" "}
+                  <span className="is-drawer-close:hidden">
+                    {" "}
+                    Approve Riders
                   </span>{" "}
                 </NavLink>
               </li>
