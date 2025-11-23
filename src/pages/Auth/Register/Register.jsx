@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Register = () => {
   const {
@@ -10,16 +11,16 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { registerUsers, signInGoogle, updateUser } = useAuth();
+  const { registerUsers, signInGoogle, updateUser, user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   console.log(location);
   const handleRegister = (data) => {
     const profileImg = data.photo[0];
 
     registerUsers(data.email, data.password)
-      .then((res) => {
-        console.log(res.user);
+      .then(() => {
         // store the img and get the photo url
         const formData = new FormData();
         formData.append("image", profileImg);
@@ -31,12 +32,23 @@ const Register = () => {
             formData
           )
           .then((res) => {
-            // console.log(res.data.data.url);
+            const photoURL = res.data.data.url;
 
+            // create user in database
+            const userInfo = {
+              email: data.email,
+              displayName: data.name,
+              photoURL: photoURL,
+            };
+            axiosSecure.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                console.log("User created in the database");
+              }
+            });
             // update user profile
             const userProfile = {
               displayName: data.name,
-              photoURL: res.data.data.url,
+              photoURL: photoURL,
             };
             updateUser(userProfile)
               .then(() => {
@@ -51,8 +63,15 @@ const Register = () => {
   const registerGoogle = () => {
     signInGoogle()
       .then((res) => {
-        // console.log(res);
-        navigate(location?.state || "/");
+        const userInfo = {
+          email: res.user.email,
+          displayName: res.user.displayName,
+          photoURL: res.user.photoURL,
+        };
+        axiosSecure.post("/users", userInfo).then((res) => {
+          console.log("google", res.data);
+          navigate(location?.state || "/");
+        });
       })
       .catch((e) => console.log(e));
   };
@@ -118,7 +137,10 @@ const Register = () => {
           )}
 
           <div className="">
-            <Link to={'/'} className="link link-hover hover:text-primary text-sm">
+            <Link
+              to={"/"}
+              className="link link-hover hover:text-primary text-sm"
+            >
               Forgot Password?
             </Link>
           </div>
