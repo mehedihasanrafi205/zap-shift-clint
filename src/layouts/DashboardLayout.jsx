@@ -1,4 +1,5 @@
 import React from "react";
+import { FaUsers } from "react-icons/fa";
 import { IoIosCard } from "react-icons/io";
 import { LuPackage } from "react-icons/lu";
 import { MdDeliveryDining } from "react-icons/md";
@@ -98,6 +99,20 @@ const DashboardLayout = () => {
                   <span className="is-drawer-close:hidden">
                     {" "}
                     Payment History
+                  </span>{" "}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Users Management"
+                  to={"/dashboard/users-management"}
+                >
+                  {" "}
+                  <FaUsers  className="my-1.5 inline-block size-4" />{" "}
+                  <span className="is-drawer-close:hidden">
+                    {" "}
+                    Users Management
                   </span>{" "}
                 </NavLink>
               </li>
