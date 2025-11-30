@@ -16,20 +16,33 @@ const UsersManagement = () => {
   });
 
   const handleMakeUser = (user, role) => {
-    const roleInfo = { role: role };
-    axiosSecure.patch(`/users/${user._id}`, roleInfo).then((res) => {
-      console.log(res.data);
-      if (res.data.modifiedCount) {
-        refetch();
-        Swal.fire({
-          title: `${user.displayName} Marked as an Admin`,
-          icon: `success`,
-          showConfirmButton: false,
-          timer: 2000,
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to make ${user.displayName} a ${role}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, confirm",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/${user._id}/role`, { role }).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            refetch();
+
+            Swal.fire({
+              title: "Success!",
+              text: `${user.displayName} is now an ${role}`,
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            });
+          }
         });
       }
     });
   };
+
   return (
     <div>
       <h2 className="text-4xl"> Manage Users {users.length}</h2>

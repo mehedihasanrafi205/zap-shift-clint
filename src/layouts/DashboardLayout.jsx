@@ -4,8 +4,10 @@ import { IoIosCard } from "react-icons/io";
 import { LuPackage } from "react-icons/lu";
 import { MdDeliveryDining } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
   return (
     <div>
       <div className="drawer lg:drawer-open ">
@@ -102,34 +104,39 @@ const DashboardLayout = () => {
                   </span>{" "}
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Users Management"
-                  to={"/dashboard/users-management"}
-                >
-                  {" "}
-                  <FaUsers  className="my-1.5 inline-block size-4" />{" "}
-                  <span className="is-drawer-close:hidden">
-                    {" "}
-                    Users Management
-                  </span>{" "}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Approve riders"
-                  to={"/dashboard/approve-riders"}
-                >
-                  {" "}
-                  <MdDeliveryDining  className="my-1.5 inline-block size-4" />{" "}
-                  <span className="is-drawer-close:hidden">
-                    {" "}
-                    Approve Riders
-                  </span>{" "}
-                </NavLink>
-              </li>
+
+              {role === "admin" && (
+                <>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Users Management"
+                      to={"/dashboard/users-management"}
+                    >
+                      {" "}
+                      <FaUsers className="my-1.5 inline-block size-4" />{" "}
+                      <span className="is-drawer-close:hidden">
+                        {" "}
+                        Users Management
+                      </span>{" "}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Approve riders"
+                      to={"/dashboard/approve-riders"}
+                    >
+                      {" "}
+                      <MdDeliveryDining className="my-1.5 inline-block size-4" />{" "}
+                      <span className="is-drawer-close:hidden">
+                        {" "}
+                        Approve Riders
+                      </span>{" "}
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
               {/* List item */}
               <li>
