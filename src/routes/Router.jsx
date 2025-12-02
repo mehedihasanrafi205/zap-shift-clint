@@ -18,6 +18,9 @@ import ApproveRiders from "../pages/Dashboard/ApproveRiders/ApproveRiders";
 import UsersManagement from "../pages/Dashboard/UsersManagement/UsersManagement";
 import AdminRoute from "./AdminRoute";
 import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
+import RiderRoute from "./RiderRoute";
+import AssignDeliveries from "../pages/Dashboard/AssignDeliveries/AssignDeliveries";
+import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +106,24 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      // Rider only routes
+      {
+        path: "assign-deliveries",
+        element: (
+          <RiderRoute>
+            <AssignDeliveries></AssignDeliveries>
+          </RiderRoute>
+        ),
+      },
+      {
+        path: "completed-deliveries",
+        element: (
+          <RiderRoute>
+            <CompletedDeliveries></CompletedDeliveries>
+          </RiderRoute>
+        ),
+      },
+      // Admin only routes
       {
         path: "assign-riders",
         element: (
@@ -113,7 +134,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "users-management",
-        // Component: UsersManagement,
+
         element: (
           <AdminRoute>
             <UsersManagement></UsersManagement>

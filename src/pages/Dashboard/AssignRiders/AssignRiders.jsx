@@ -33,6 +33,7 @@ const AssignRiders = () => {
     riderModalRef.current.showModal();
   };
   const handleAssignRider = (rider) => {
+    
     const riderAssignInfo = {
       riderId: rider._id,
       riderEmail: rider.email,
@@ -40,7 +41,7 @@ const AssignRiders = () => {
       parcelId: selectedParcel._id,
     };
     axiosSecure
-      .patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+      .patch(`/parcels/${selectedParcel._id}/assign`, riderAssignInfo)
       .then((res) => {
         if (res.data.modifiedCount) {
           riderModalRef.current.close();

@@ -16,36 +16,40 @@ const ApproveRiders = () => {
       return res.data;
     },
   });
-  const updateRiderStatus = (riser, status) => {
-    const updateInfo = { status: status, email: riser.email };
-    axiosSecure.patch(`/riders/${riser._id}`, updateInfo).then((res) => {
+
+  const updateRiderStatus = (rider, status) => {
+    const updateInfo = { status: status, email: rider.email };
+    axiosSecure.patch(`/riders/${rider._id}`, updateInfo).then((res) => {
       if (res.data.modifiedCount) {
         refetch();
         Swal.fire({
-          title: `Rider has been ${status}`,
-          icon: `${status === "approved" ? "success" : "error"}`,
+          position: "top-end",
+          icon: "success",
+          title: `Rider status is set to ${status}.`,
           showConfirmButton: false,
           timer: 2000,
         });
       }
     });
   };
-  const handleApproval = (riser) => {
-    updateRiderStatus(riser, "approved");
+
+  const handleApproval = (rider) => {
+    updateRiderStatus(rider, "approved");
   };
-  const handleRejection = (riser) => {
-    updateRiderStatus(riser, "rejected");
+
+  const handleRejection = (rider) => {
+    updateRiderStatus(rider, "rejected");
   };
+
   return (
     <div>
-      <h2>Riders Pending Approval:{riders.length} </h2>
-
-      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-        <table className="table">
+      <h2 className="text-5xl">Riders Pending Approval: {riders.length} </h2>
+      <div className="overflow-x-auto">
+        <table className="table table-zebra">
           {/* head */}
           <thead>
             <tr>
-              <th>#</th>
+              <th></th>
               <th>Name</th>
               <th>Email</th>
               <th>District</th>
@@ -55,43 +59,38 @@ const ApproveRiders = () => {
             </tr>
           </thead>
           <tbody>
-            {riders.map((rider, i) => (
+            {riders.map((rider, index) => (
               <tr>
-                <th>{i + 1}</th>
+                <th>{index + 1}</th>
                 <td>{rider.name}</td>
                 <td>{rider.email}</td>
                 <td>{rider.district}</td>
                 <td>
                   <p
-                    className={`badge badge-md badge-soft ${
+                    className={`${
                       rider.status === "approved"
-                        ? "badge-success"
-                        : rider.status === "pending"
-                        ? "badge-warning"
-                        : "badge-error"
+                        ? "text-green-800"
+                        : "text-red-500"
                     }`}
                   >
                     {rider.status}
                   </p>
                 </td>
                 <td>{rider.workStatus}</td>
-                <td className="space-x-2">
-                  <button className="btn ">
-                    <FaEye />
+                <td>
+                  <button className="btn">
+                    <FaEye></FaEye>
                   </button>
-                  <button
-                    onClick={() => handleApproval(rider)}
-                    className="btn "
-                  >
+                  <button onClick={() => handleApproval(rider)} className="btn">
                     <FaUserCheck />
                   </button>
                   <button
                     onClick={() => handleRejection(rider)}
-                    className="btn "
+                    className="btn"
                   >
                     <IoPersonRemoveSharp />
                   </button>
-                  <button className="btn ">
+                  <button className="btn">
                     <FaTrashCan />
                   </button>
                 </td>
@@ -100,27 +99,6 @@ const ApproveRiders = () => {
           </tbody>
         </table>
       </div>
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
-      <button
-        className="btn"
-        onClick={() => document.getElementById("my_modal_5").showModal()}
-      >
-        open modal
-      </button>
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
     </div>
   );
 };

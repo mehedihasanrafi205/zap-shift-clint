@@ -1,11 +1,12 @@
 import React from "react";
-import { FaUsers } from "react-icons/fa";
+import { FaTasks, FaUsers } from "react-icons/fa";
 import { IoIosCard } from "react-icons/io";
 import { LuPackage } from "react-icons/lu";
 import { MdDeliveryDining } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
+import { SiGoogletasks } from "react-icons/si";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -105,6 +106,41 @@ const DashboardLayout = () => {
                   </span>{" "}
                 </NavLink>
               </li>
+
+              {role === "rider" && (
+                <>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Assign Deliveries"
+                      to={"/dashboard/assign-deliveries"}
+                    >
+                      {" "}
+                      <FaTasks className="my-1.5 inline-block size-4" />{" "}
+                      <span className="is-drawer-close:hidden">
+                        {" "}
+                        Assign Deliveries
+                      </span>{" "}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Completed Deliveries"
+                      to={"/dashboard/completed-deliveries"}
+                    >
+                      {" "}
+                      <SiGoogletasks className="my-1.5 inline-block size-4" />{" "}
+                      <span className="is-drawer-close:hidden">
+                        {" "}
+                        Completed Deliveries
+                      </span>{" "}
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {/* admin only links */}
 
               {role === "admin" && (
                 <>
