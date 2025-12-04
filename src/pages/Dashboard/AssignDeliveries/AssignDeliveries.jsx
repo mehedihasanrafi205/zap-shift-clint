@@ -17,7 +17,11 @@ const AssignDeliveries = () => {
     },
   });
   const handleDeliveryStatusUpdate = (parcel, status) => {
-    const statusInfo = { deliveryStatus: status, riderId: parcel.riderId };
+    const statusInfo = {
+      deliveryStatus: status,
+      riderId: parcel.riderId,
+      trackingId: parcel.trackingId,
+    };
     let message = ` Partial status is update with ${status
       .split("-")
       .join(" ")}`;

@@ -33,12 +33,12 @@ const AssignRiders = () => {
     riderModalRef.current.showModal();
   };
   const handleAssignRider = (rider) => {
-    
     const riderAssignInfo = {
       riderId: rider._id,
       riderEmail: rider.email,
       riderName: rider.name,
       parcelId: selectedParcel._id,
+      trackingId: selectedParcel.trackingId,
     };
     axiosSecure
       .patch(`/parcels/${selectedParcel._id}/assign`, riderAssignInfo)

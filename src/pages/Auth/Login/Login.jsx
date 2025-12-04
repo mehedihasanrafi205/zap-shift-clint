@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import axios from "axios";
 
 const Login = () => {
   const {
@@ -35,7 +36,7 @@ const Login = () => {
           displayName: res.user.displayName,
           photoURL: res.user.photoURL,
         };
-        axiosSecure.post("/users", userInfo).then((res) => {
+        axios.post("http://localhost:3000/users", userInfo).then((res) => {
           console.log("google", res.data);
           navigate(location?.state || "/");
         });
